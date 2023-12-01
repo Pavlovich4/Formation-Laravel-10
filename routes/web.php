@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', App\Http\Controllers\WelcomeController::class);
+Route::get('/', App\Http\Controllers\WelcomeController::class)->name('home');
 
 Route::prefix('/articles')
     ->controller(App\Http\Controllers\PostController::class)

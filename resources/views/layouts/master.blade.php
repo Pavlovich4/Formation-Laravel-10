@@ -6,8 +6,12 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') - Mon super site</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-@yield('content')
+<body class="bg-gray-100">
+    @include('layouts.nav')
+<div class="p-5">
+    @yield('content')
+</div>
 </body>
 </html>
