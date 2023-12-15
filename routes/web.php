@@ -17,6 +17,9 @@ Route::prefix('/articles')
         'slug' => '[a-z0-9\-]+',
         'id' => '[0-9]+'
     ])->name('show');
+
+    Route::get('create', 'create')->name('create');
+    Route::post('store', 'store')->name('store');
 });
 
 

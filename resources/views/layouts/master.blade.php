@@ -11,6 +11,11 @@
 <body class="bg-gray-100">
     @include('layouts.nav')
 <div class="p-5">
+    <div class="mb-2">
+        @if(session('success'))
+            <div class="bg-green-600 text-white p-2 rounded">{{ session('success') }}</div>
+        @endif
+    </div>
     @yield('content')
 </div>
 </body>

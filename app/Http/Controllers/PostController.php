@@ -2,31 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePostRequest;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = [
-            [
-                'id' => 1,
-                'title' => 'Ici mon super article',
-                'content' => 'Ici mon contenu'
-            ],
-            [
-                'id' => 2,
-                'title' => 'Ici mon second super article',
-                'content' => 'Ici mon second contenu'
-            ]
-        ];
+        $posts = Post::latest()->paginate(8);
 
         return view('posts.index', compact('posts'));
     }
 
 
-    public function show($slug, $id) {
+    public function show($slug, $id)
+    {
+        $post = Post::findOrFail($id);
 
-        return view('posts.show', compact('slug', 'id'));
+
+        if ($post->slug != $slug) {
+            return to_route('posts.show', ['id' => $post->id, 'slug' => $post->slug]);
+        }
+
+
+        return view('posts.show', compact('post'));
     }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(CreatePostRequest $request)
+    {
+
+        $title = $request->input('title');
+
+        Post::create([
+            'title' => $title,
+            'slug' => str($title)->slug(),
+            'content' => $request->input('content')
+        ]);
+
+        return to_route('posts.index')->with('success', 'Article créé avec succès');
+    }
+
 }
