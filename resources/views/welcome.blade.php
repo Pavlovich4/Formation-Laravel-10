@@ -1,5 +1,3 @@
-@extends('layouts.master')
-@section('title', 'Bienvenue')
-@section('content')
+<x-layout title="Bienvenue">
     Bienvenu sur notre site
-@endsection
+</x-layout>

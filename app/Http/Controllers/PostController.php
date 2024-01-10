@@ -45,7 +45,10 @@ class PostController extends Controller
             'content' => $request->input('content')
         ]);
 
-        return to_route('posts.index')->with('success', 'Article créé avec succès');
+        return to_route('posts.index')->with('alert', [
+            'type' => 'success',
+            'message' => 'Article créé avec succès'
+        ]);
     }
 
 }

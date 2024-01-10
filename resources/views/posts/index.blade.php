@@ -1,9 +1,5 @@
-@extends('layouts.master')
-
-@section('title', 'Liste des articles')
-
-@section('content')
-   <div class="grid grid-cols-4 gap-3">
+<x-layout title="Liste des articles">
+    <div class="grid grid-cols-4 gap-3">
         @forelse($posts as $post)
             <a href="{{ route('posts.show', [
                 'id' => $post->id,
@@ -18,10 +14,9 @@
         @empty
             <small class="text-gray-500 italic">Pas d'article</small>
         @endforelse
-   </div>
+    </div>
 
     <div class="mt-2">
         {{ $posts->links() }}
     </div>
-
-@endsection
+</x-layout>
