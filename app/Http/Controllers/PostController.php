@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    public function index()
+
+    public function index(): View
     {
         $posts = Post::latest()->paginate(8);
 
