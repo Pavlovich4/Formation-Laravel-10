@@ -18,10 +18,8 @@ class PostController extends Controller
     }
 
 
-    public function show($slug, $id)
+    public function show(string $slug, Post $post)
     {
-        $post = Post::findOrFail($id);
-
 
         if ($post->slug != $slug) {
             return to_route('posts.show', ['id' => $post->id, 'slug' => $post->slug]);

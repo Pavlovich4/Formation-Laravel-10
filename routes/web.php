@@ -12,10 +12,9 @@ Route::prefix('/articles')
 
     Route::get('/', 'index')->name('index');
 
-    Route::get('/{slug}-{id}', 'show')
+    Route::get('/{slug}-{post}', 'show')
         ->where([
-        'slug' => '[a-z0-9\-]+',
-        'id' => '[0-9]+'
+        'slug' => '[a-z0-9\-]+'
     ])->name('show');
 
     Route::get('create', 'create')->name('create');

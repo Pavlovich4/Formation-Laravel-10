@@ -2,8 +2,8 @@
     <div class="grid grid-cols-4 gap-3">
         @forelse($posts as $post)
             <a href="{{ route('posts.show', [
-                'id' => $post->id,
-                'slug' => $post->slug
+                'post' => $post->id,
+                'slug' => $post->slug,
             ]) }}">
                 <div class="flex flex-col bg-white shadow p-1 rounded gap-1">
                     <img src="https://fakeimg.pl/600x400/4657d9/ffffff" alt="">
