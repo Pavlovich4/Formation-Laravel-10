@@ -14,7 +14,7 @@
     <x-nav></x-nav>
     <div class="p-5">
         @if(session()->has('alert'))
-            <x-alert :type="session('alert')['type']" :message="session('alert')['message']"></x-alert>
+            <x-alert :type="session('alert')['type']">{{ session('alert')['message'] }}</x-alert>
         @endif
         {{ $slot }}
     </div>

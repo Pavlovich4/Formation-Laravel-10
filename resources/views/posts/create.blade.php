@@ -9,6 +9,13 @@
             <span class="text-red-600">{{ $message }}</span>
             @enderror
         </div>
+        <div class="flex items-center mb-4">
+            <input id="default-checkbox" name="is_published" type="checkbox" value="@checked(old('is_published'))" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Publier l'article</label>
+            @error('is_published')
+                <span class="text-red-600">{{ $message }}</span>
+            @enderror
+        </div>
         <div class="flex flex-col">
             <label for="content" class="font-semibold">Contenu</label>
             <textarea

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PostController extends Controller
@@ -12,7 +11,7 @@ class PostController extends Controller
 
     public function index(): View
     {
-        $posts = Post::latest()->paginate(8);
+        $posts = Post::latest()->isPublished()->paginate(8);
 
         return view('posts.index', compact('posts'));
     }
@@ -41,7 +40,7 @@ class PostController extends Controller
 
         Post::create([
             'title' => $title,
-            'slug' => str($title)->slug(),
+            'is_published' => $request->boolean('is_published'),
             'content' => $request->input('content')
         ]);
 
