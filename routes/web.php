@@ -19,6 +19,11 @@ Route::prefix('/articles')
 
     Route::get('create', 'create')->name('create');
     Route::post('store', 'store')->name('store');
+
+    Route::get('{post}/edit', 'edit')->name('edit');
+    Route::put('{post}/update', 'update')->name('update');
+
+    Route::delete('{post}/delete', 'delete')->name('delete');
 });
 
 
