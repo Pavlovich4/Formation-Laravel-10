@@ -12,7 +12,7 @@ class PostController extends Controller
 
     public function index(): View
     {
-        $posts = Post::latest()->isPublished()->paginate(8);
+        $posts = Post::latest()->isPublished()->paginate(12);
 
         return view('posts.index', compact('posts'));
     }
@@ -80,7 +80,7 @@ class PostController extends Controller
     }
 
 
-    public function delete(Post $post)
+    public function destroy(Post $post)
     {
         $post->delete();
 

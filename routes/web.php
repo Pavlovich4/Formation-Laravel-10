@@ -5,26 +5,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', App\Http\Controllers\WelcomeController::class)->name('home');
 
-Route::prefix('/articles')
+Route::prefix('/posts')
     ->controller(App\Http\Controllers\PostController::class)
     ->name('posts.')
     ->group(function () {
 
-    Route::get('/', 'index')->name('index');
 
     Route::get('/{slug}-{post}', 'show')
         ->where([
         'slug' => '[a-z0-9\-]+'
     ])->name('show');
-
-    Route::get('create', 'create')->name('create');
-    Route::post('store', 'store')->name('store');
-
-    Route::get('{post}/edit', 'edit')->name('edit');
-    Route::put('{post}/update', 'update')->name('update');
-
-    Route::delete('{post}/delete', 'delete')->name('delete');
 });
+
+Route::resource('posts', \App\Http\Controllers\PostController::class)->except(['show']);
 
 
 
