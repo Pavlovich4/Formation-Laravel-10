@@ -38,13 +38,19 @@ class PostController extends Controller
 
     public function store(CreatePostRequest $request)
     {
+        $imagePath = '';
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('articles', 'public');
+        }
 
         $title = $request->input('title');
 
         Post::create([
             'title' => $title,
             'is_published' => $request->boolean('is_published'),
-            'content' => $request->input('content')
+            'content' => $request->input('content'),
+            'image' => $imagePath
         ]);
 
         return to_route('posts.index')->with('alert', [
@@ -63,14 +69,21 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'is_published' => 'required'
+            'is_published' => 'required',
+            'image' => 'file|nullable'
         ]);
 
+        $imagePath = '';
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('articles', 'public');
+        }
 
         $post->update([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
-            'is_published' => $request->boolean('is_published')
+            'is_published' => $request->boolean('is_published'),
+            'image' => $imagePath
         ]);
 
         return to_route('posts.index')->with('alert', [
