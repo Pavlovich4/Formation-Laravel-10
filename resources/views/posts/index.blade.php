@@ -3,7 +3,7 @@
         @forelse($posts as $post)
 
             <div class="flex flex-col bg-white shadow rounded gap-1 group relative p-1">
-                <img src="{{ $post->image ? asset('storage/' . $post->image) : 'https://fakeimg.pl/600x400/4657d9/ffffff' }}" class="h-60" alt="">
+                <img src="{{ $post->image_url }}" class="h-60" alt="">
                 <div class="p-1">
                        <div  class="text-gray-700 text-sm flex justify-between">
                            <a href="{{ route('posts.show', [
