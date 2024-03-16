@@ -19,6 +19,10 @@ Route::prefix('/posts')
 
 Route::resource('posts', \App\Http\Controllers\PostController::class)->except(['show']);
 
+Route::get('/login', [\App\Http\Controllers\LoginController::class, 'showLoginForm'])->name('login.get');
+Route::post('/login', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('login.post');
+Route::post('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+
 
 
 
