@@ -20,7 +20,6 @@ class PostController extends Controller
 
     public function show(string $slug, Post $post)
     {
-
         if ($post->slug != $slug) {
             return to_route('posts.show', ['id' => $post->id, 'slug' => $post->slug]);
         }

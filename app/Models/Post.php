@@ -12,7 +12,7 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'slug', 'content', 'is_published', 'image'
+        'title', 'slug', 'content', 'is_published', 'image', 'user_id'
     ];
 
     protected $casts = [
@@ -40,6 +40,11 @@ class Post extends Model
     protected function title(): Attribute
     {
         return Attribute::set(fn($value) => str($value)->title());
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     protected static function booted(): void

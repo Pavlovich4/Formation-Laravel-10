@@ -11,6 +11,7 @@ class WelcomeController extends Controller
      */
     public function __invoke(Request $request)
     {
+        dd(auth()->user()->posts);
         return view('welcome');
     }
 }
