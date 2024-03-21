@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class PostController extends Controller
@@ -12,7 +13,7 @@ class PostController extends Controller
 
     public function index(): View
     {
-        $posts = Post::latest()->isPublished()->paginate(12);
+        $posts = Post::with('author')->latest()->isPublished()->paginate(12);
 
         return view('posts.index', compact('posts'));
     }
@@ -60,11 +61,18 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        //Gate::authorize('update', $post);
+
+        if (!auth()->user()->can('update', $post)) {
+            abort(401);
+        }
+
         return view('posts.edit', compact('post'));
     }
 
     public function update(Request $request, Post $post)
     {
+        Gate::authorize('update', $post);
         $data = $request->validate([
             'title' => 'required',
             'content' => 'required',
@@ -94,6 +102,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        Gate::authorize('delete', $post);
         $post->delete();
 
         return back()->with('alert', [
@@ -101,5 +110,4 @@ class PostController extends Controller
             'message' => 'Article supprime avec succes'
         ]);
     }
-
 }

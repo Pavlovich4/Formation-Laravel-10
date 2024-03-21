@@ -13,14 +13,7 @@
                                {{ $post->title }}
                            </a>
 
-                           <div class="flex gap-1" x-data>
-                               <a href="{{ route('posts.edit', $post) }}" class="bg-blue-500 p-1 rounded text-white inline-block"><x-edit-icon></x-edit-icon></a>
-                               <form action="{{ route('posts.destroy', $post) }}" method="POST" x-ref="delete">
-                                   @method('DELETE')
-                                   @csrf
-                                    <button type="button" @click.prevent="confirm('Voulez-vous vraiment supprimer cet article ?') ? $refs.delete.submit() : false" class="bg-red-500 p-1 rounded text-white inline-block"><x-delete-icon></x-delete-icon></button>
-                               </form>
-                           </div>
+                           <span>Par {{ $post->author->name }}</span>
                        </div>
                     <p class="text-gray-500 text-xs">{{ str($post->content)->limit(50) }}</p>
                 </div>

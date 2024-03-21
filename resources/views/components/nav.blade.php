@@ -5,9 +5,10 @@
             <li><a class="p-1 {{ request()->routeIs('posts.index') ? 'border border-white rounded font-bold' : '' }}" href="{{ route('posts.index') }}">Liste des articles</a></li>
         </ul>
 
-        <ul class="flex gap-2">
-            <li><a class="p-1 {{ request()->routeIs('posts.create') ? 'border border-white rounded font-bold' : '' }}" href="{{ route('posts.create') }}">Ajouter un article</a></li>
+        <ul class="flex gap-2 items-center">
             @if(auth()->check())
+                <li class="bg-yellow-500 rounded px-2 py-1">{{ auth()->user()->name }}</li>
+                <li><a class="p-1 {{ request()->routeIs('posts.create') ? 'border border-white rounded font-bold' : '' }}" href="{{ route('posts.create') }}">Ajouter un article</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
