@@ -15,6 +15,17 @@
         @enderror
     </div>
     <div class="flex flex-col">
+        <label for="tags" class="font-semibold">Tags</label>
+        <select name="tags[]" class="border rounded py-2 px-2 shadow" multiple>
+            @foreach ($tags as $tag)
+                <option value="{{ $tag->id }}" @selected(in_array($tag->id, $postTags))>{{ $tag->name }}</option>
+            @endforeach
+        </select>
+        @error('tags')
+        <span class="text-red-600">{{ $message }}</span>
+        @enderror
+    </div>
+    <div class="flex flex-col">
         <label for="image" class="font-semibold">Image</label>
         <input type="file"  id="image" name="image" class="border rounded py-2 px-2 shadow">
         @error('image')

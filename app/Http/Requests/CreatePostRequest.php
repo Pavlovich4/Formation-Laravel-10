@@ -24,7 +24,8 @@ class CreatePostRequest extends FormRequest
         return [
             'title' => 'required|min:5',
             'content' => 'required',
-            'image' => 'nullable|file'
+            'image' => 'nullable|file',
+            'tags' => 'nullable|array'
         ];
     }
 }

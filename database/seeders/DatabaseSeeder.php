@@ -15,15 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $user = User::factory(2)->create();
-
-         Post::factory(10)->create([
-             'user_id' => $user[0]->id
-         ]);
-
-         Post::factory(10)->create([
-             'user_id' => $user[1]->id
-         ]);
-
+        $this->call([
+            TagSeeder::class
+        ]);
     }
 }

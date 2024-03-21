@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Http\Controllers\PostController;
+use App\Models\Post;
+use App\Observers\PostObserver;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        //Post::observe(PostObserver::class);
     }
 }

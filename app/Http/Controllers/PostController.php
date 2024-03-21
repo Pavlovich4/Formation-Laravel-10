@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
@@ -33,11 +34,14 @@ class PostController extends Controller
     {
         $post = new Post();
 
-        return view('posts.create', compact('post'));
+        $tags = Tag::all();
+
+        return view('posts.create', compact('post', 'tags'));
     }
 
     public function store(CreatePostRequest $request)
     {
+
         $imagePath = '';
 
         if ($request->hasFile('image')) {
@@ -46,12 +50,14 @@ class PostController extends Controller
 
         $title = $request->input('title');
 
-        Post::create([
+        $post = Post::create([
             'title' => $title,
             'is_published' => $request->boolean('is_published'),
             'content' => $request->input('content'),
-            'image' => $imagePath
+            'image' => $imagePath,
         ]);
+
+        $post->tags()->attach($request->tags);
 
         return to_route('posts.index')->with('alert', [
             'type' => 'success',
@@ -67,7 +73,11 @@ class PostController extends Controller
             abort(401);
         }
 
-        return view('posts.edit', compact('post'));
+        $tags = Tag::all();
+
+        $postTags = $post->tags->pluck('id')->toArray();
+
+        return view('posts.edit', compact('post', 'tags', 'postTags'));
     }
 
     public function update(Request $request, Post $post)
@@ -77,7 +87,8 @@ class PostController extends Controller
             'title' => 'required',
             'content' => 'required',
             'is_published' => 'required',
-            'image' => 'file|nullable'
+            'image' => 'file|nullable',
+            'tags' => 'nullable|array'
         ]);
 
         $imagePath = '';
@@ -93,6 +104,8 @@ class PostController extends Controller
             'image' => $imagePath
         ]);
 
+        $post->tags()->sync($request->tags);
+
         return to_route('posts.index')->with('alert', [
             'type' => 'success',
             'message' => 'Article edité avec succès'
@@ -105,7 +118,7 @@ class PostController extends Controller
         Gate::authorize('delete', $post);
         $post->delete();
 
-        return back()->with('alert', [
+        return to_route('posts.index')->with('alert', [
             'type' => 'success',
             'message' => 'Article supprime avec succes'
         ]);

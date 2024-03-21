@@ -20,6 +20,11 @@
             </div>
         </div>
     </div>
+    <div class="flex gap-2 p-2">
+        @foreach ($post->tags as $tag)
+            <span class="bg-green-300 rounded px-2 py-1">{{ $tag->name }}</span>
+        @endforeach
+    </div>
     <div class="bg-white p-5 rounded mt-2 leading-8">
         <h1 class="text-3xl">{{ $post->title }}</h1>
         <p class="p-5">

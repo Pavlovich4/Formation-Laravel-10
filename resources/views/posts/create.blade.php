@@ -2,6 +2,7 @@
     @include('posts.form', [
         'method' => 'POST',
         'action' => route('posts.store'),
-        'post' => $post
+        'post' => $post,
+        'tags' => $tags
     ])
 </x-layout>
